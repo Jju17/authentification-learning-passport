@@ -1,7 +1,7 @@
 {
   "name": "Secrets",
   "version": "1.0.0",
-  "description": "",
+  "description": "To inspect the code for the module, you can clone this repository and use git checkout to see the completed code for each lesson. If you don't remember how to do this, be sure to revisit the Git and GitHub module in the course.",
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -23,5 +23,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jju17/authentification-learning-passport.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Jju17/authentification-learning-passport/issues"
+  },
+  "homepage": "https://github.com/Jju17/authentification-learning-passport#readme"
 }
