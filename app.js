@@ -31,9 +31,9 @@ app.use(passport.session());
 mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 
 const userSchema = new mongoose.Schema ({
-  email: String,
+  username: String,
   password: String,
-  googleId: String,
+  socialId: String,
   secret: String
 });
 
@@ -63,7 +63,7 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, cb) {
     console.log(profile);
 
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    User.findOrCreate({ socialId: profile.id }, function (err, user) {
       return cb(err, user);
     });
   }
@@ -75,7 +75,9 @@ passport.use(new FacebookStrategy({
     callbackURL: "http://localhost:3000/auth/facebook/secrets"
   },
   function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+    console.log(profile);
+
+    User.findOrCreate({ socialId: profile.id }, function (err, user) {
       return cb(err, user);
     });
   }
@@ -90,7 +92,7 @@ app.get("/auth/google",
 );
 
 app.get("/auth/facebook",
-  passport.authenticate('facebook', { scope: ["email"] })
+  passport.authenticate('facebook', {})
 );
 
 app.get("/auth/google/secrets",
@@ -140,7 +142,6 @@ app.post("/submit", function(req, res){
 
 //Once the user is authenticated and their session gets saved, their user details are saved to req.user.
   // console.log(req.user.id);
-
   User.findById(req.user.id, function(err, foundUser){
     if (err) {
       console.log(err);
